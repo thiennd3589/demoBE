@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Thien@2021",
+    "database": "find_meet",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "Thien@2021",
+    "database": "find_meet",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "Thien@2021",
+    "database": "find_meet",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
