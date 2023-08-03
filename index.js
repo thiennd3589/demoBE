@@ -14,6 +14,7 @@ app.app.listen(PORT, () => {
 
 app.io.listen("8081");
 app.io.on("connection", (socket) => {
+  console.log("new connection");
   socket.on("join", (data) => {
     if (!socket.rooms.has(`meet_${data.meet_id}`)) {
       console.log("huuuuu");
