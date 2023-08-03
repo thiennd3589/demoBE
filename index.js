@@ -16,9 +16,11 @@ app.io.listen("8081");
 app.io.on("connection", (socket) => {
   socket.on("join", (data) => {
     if (!socket.rooms.has(`meet_${data.meet_id}`)) {
+      console.log("huuuuu");
       socket.join(`meet_${data.meet_id}`);
     }
     socket.on("drawing", (data) => {
+      console.log("heyyyy");
       socket.to(`meet_${data.meet_id}`).emit("drawing", data);
     });
   });
