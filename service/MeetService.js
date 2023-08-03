@@ -1,7 +1,9 @@
 const { default: axios } = require("axios");
-const { Meet } = require("../models");
+const { Meet, UserMeet } = require("../models");
 const { dailyUrl, dailyApiKey } = require("../constants/daily");
 const { v4: uuidv4 } = require("uuid");
+
+const TYPE = { MESSAGE: "message", FILE: "file" };
 
 const addMeet = async (data) => {
   const { id: userId, startTime } = data;
@@ -35,4 +37,47 @@ const getMeetById = async (id) => {
   }
 };
 
-module.exports = { addMeet, getMeetById };
+const joinMeet = async (meet_id, user_id) => {
+  try {
+    const exist = await UserMeet.findOne({ where: { meet_id, user_id } });
+    if (!!!exist) {
+      const meet = await getMeetById(meet_id);
+      if (!meet) {
+        throw Error("MEET_DOES_NOT_EXIST");
+      }
+      await UserMeet.create({ user_id, meet_id });
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const addMessage = async (content, user_id, meet_id) => {
+  try {
+    const message = await UserMeet.create({
+      user_id,
+      meet_id,
+      content,
+      type: TYPE.MESSAGE,
+    });
+    return message.toJSON();
+  } catch (error) {
+    throw error;
+  }
+};
+
+const addFile = async (url, user_id, meet_id) => {
+  try {
+    const file = await UserMeet.create({
+      user_id,
+      meet_id,
+      url,
+      type: TYPE.FILE,
+    });
+    return file.toJSON();
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { addMeet, getMeetById, joinMeet, addMessage, addFile };
