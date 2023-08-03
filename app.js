@@ -16,7 +16,7 @@ class App {
     this.server = http.createServer(this.app);
     this.io = new Server(this.server);
     global.io = this.io;
-    this.app.use(cors({ origin: "*" }));
+    this.app.use(cors());
     this.app.use(express.json());
     this.app.use(log);
     this.app.use("/static", express.static("./uploads"));
